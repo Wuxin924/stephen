@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        <style>* {
+            padding: 0;
+            margin: 0;
+        }
+
+        #outer {
+            width: 600px;
+            height: 300px;
+            display: flex;
+            text-align: center;
+        }
+
+        #left {
+            width: 200px;
+            height: 300px;
+            background-color: blueviolet;
+
+        }
+
+        #change {
+            width: 200px;
+            height: 300px;
+            background-color: salmon;
+        }
+
+        #change button {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #right {
+            width: 200px;
+            height: 300px;
+            background-color: blueviolet;
+
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="left">
+            <label for="ipt1">
+                <p><input type="checkbox" id="ipt1">我是left中的1</p>
+            </label>
+            <label for="ipt2">
+                <p><input type="checkbox" id="ipt2">我是left中的2</p>
+            </label>
+            <label for="ipt3">
+                <p><input type="checkbox" id="ipt3">我是left中的3</p>
+            </label>
+            <label for="ipt4">
+                <p><input type="checkbox" id="ipt4">我是left中的4</p>
+            </label>
+        </div>
+        <div id="change">
+            <button id="toright">向右移动</button>
+            <button id="toleft">向左移动</button>
+        </div>
+        <div id="right">
+            <label for="ipt5">
+                <p><input type="checkbox" id="ipt5">我是right中的1</p>
+            </label>
+            <label for="ipt6">
+                <p><input type="checkbox" id="ipt6">我是right中的1</p>
+            </label>
+            <label for="ipt7">
+                <p><input type="checkbox" id="ipt7">我是right中的1</p>
+            </label>
+            <label for="ipt8">
+                <p><input type="checkbox" id="ipt8">我是right中的1</p>
+            </label>
+        </div>
+        <script>
+            var oToleft = document.getElementById('toleft');
+            var oToright = document.getElementById('toright');
+            var oLeft = document.getElementById('left');
+            var oRight = document.getElementById('right');
+            var oRps = document.querySelectorAll('#right p')
+            var oLps = document.querySelectorAll('#left p')
+            var oLeftInputs = document.querySelectorAll('#left input');
+            var oRightInputs = document.querySelectorAll('#right input');
+           // 点击按钮  将左边选中的元素节点的父元素节点一起移入右边
+            oToright.onclick = function () {
+                oLeftInputs.forEach(function (item, index) {
+                    if (item.checked) {
+                        oRight.appendChild(item.parentNode)// 将item的父元素节点插入右边
+                        item.checked = false; // 布尔值本身就是个值  不能够是字符串.
+                    }
+
+                })
+            }
+            //将右边选中的元素节点的父元素节点一起移入左边
+            oToleft.onclick = function () {
+                oRightInputs.forEach(function (item, index) {
+                    if (item.checked) {
+                        oLeft.appendChild(item.parentNode)//将item的父元素节点插入左边
+                        item.checked = false; // 布尔值本身就是个值  不能够是字符串.
+                    }
+
+                })
+            }
+
+
+
+        </script>
+</body>
+
+</html>

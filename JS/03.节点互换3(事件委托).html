@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #outer {
+            width: 600px;
+            height: 300px;
+            display: flex;
+            text-align: center;
+        }
+
+        #left {
+            width: 200px;
+            height: 300px;
+            background-color: blueviolet;
+
+        }
+
+        #change {
+            width: 200px;
+            height: 300px;
+            background-color: salmon;
+        }
+
+        #change button {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #right {
+            width: 200px;
+            height: 300px;
+            background-color: blueviolet;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="left">
+            <p>我是left中的1</p>
+            <p>我是left中的2</p>
+            <p>我是left中的3</p>
+            <p>我是left中的4</p>
+        </div>
+        <div id="change">
+            <button id="toright">向右移动</button>
+            <button id="toleft">向左移动</button>
+        </div>
+        <div id="right">
+            <p>我是right中的1</p>
+            <p>我是right中的2</p>
+            <p>我是right中的3</p>
+            <p>我是right中的4</p>
+        </div>
+        <script>
+            var oToleft = document.getElementById('toleft');
+            var oToright = document.getElementById('toright');
+            var oLeft = document.getElementById('left');
+            var oRight = document.getElementById('right');
+            var oRps = document.querySelectorAll('#right p')
+            var oLps = document.querySelectorAll('#left p')
+            var oOuter = document.getElementById('outer');
+            var oPs = document.querySelectorAll('#outer p');
+            /*
+                 节点互换方法3 主要在 绑定点击事件给点击元素的颜色改为红色进行了优化
+                   由原来的方法升级为事件委托
+                   进行交换的点击事件并没有改变.
+             */
+
+            //绑定点击事件. 给点击到左边的元素节点改变颜色.
+
+            //根据委托事件(冒泡原理) 可以给父元素绑定点击事件 从而来设置子元素节点的样式.
+            // 可以直接设置在oOuter  也可以分别设置给left right
+            oOuter.onclick = function (e) {
+                if (e.target.nodeName === "P") {
+                    e.target.style.background = "red";
+                    e.target.dataset.click = "true";
+                }
+            }
+
+
+            // 绑定点击事件. 将左边已经改变颜色的元素节点移入右边.
+            oToright.onclick = function () {
+                var oLps = document.querySelectorAll('#left p')
+                oLps.forEach(function (item, index) {
+                    if (item.dataset.click) {
+                        item.style.background = "transparent";
+                        delete item.dataset.click;
+                        oRight.appendChild(item);
+                    }
+                })
+            }
+            // 绑定点击事件. 将左边已经改变颜色的元素节点移入左边.
+            oToleft.onclick = function () {
+                var oRps = document.querySelectorAll('#right p')
+                oRps.forEach(function (item, index) {
+                    if (item.dataset.click) {
+                        item.style.background = "transparent";
+                        delete item.dataset.click;
+                        oLeft.appendChild(item);
+                    }
+                })
+            }
+        </script>
+</body>
+
+</html>
