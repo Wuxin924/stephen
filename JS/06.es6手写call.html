@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.Mycall = function (context,...arguments) {
+            if (context === null || context === undefined) context = window
+            if (typeof context !== 'object' && typeof context !== "function") context = Object(context)
+            let c = Symbol()
+            context[c] = this
+            context[c](...arguments)
+            delete context[c]
+        }
+        function fn(a, b) {
+            console.log(a + b);
+            console.log(a, b, this);
+        }
+        fn.Mycall(2, 3, 4)
+    </script>
+</body>
+
+</html>
